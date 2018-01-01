@@ -1,0 +1,87 @@
+
+input[type=text]{
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.07);
+}
+
+input[type=button]{
+  padding: 5px;
+}
+
+
+#ex1Slider .slider-selection {
+    background: #BABABA;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;   
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+div.projectarea {
+    width: 350px;
+    height: 100px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.07);
+    float:left;
+    margin-left: 50px;
+    margin-bottom: 5px;
+}
+
+div.priority {
+    width: 100px;
+    height: 75px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.07);
+    margin-left: 5px;
+    float:left;
+    text-align: center;
+}
+div.btnss{
+    float:left;
+    margin-left: 5px;
+}
+
+td.td{
+    background: rgba(0, 0, 0, 0.07);
+    height: 100px;
+    width: 150px;
+    padding: 5px;
+}
+
+td.td1{
+    background: rgba(0, 0, 0, 0.07);
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 100px;
+    width: 150px;
+    padding: 5px;
+}

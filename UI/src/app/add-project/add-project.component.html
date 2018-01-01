@@ -1,0 +1,127 @@
+<div>
+	<br>
+	<form #addProjectForm="ngForm">
+		<table>
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="projectName"> Project : </label>
+					</div>
+				</td>
+				<td colspan="2">
+					<input class="form-control" type="text" [(ngModel)]="project.projectName" name="projectName" id="projectName" required #projectName="ngModel"/>
+					<div [hidden]="projectName.valid || projectName.pristine" class="alert alert-danger">
+						<div [hidden]="!projectName.hasError('required')">Project Name is required</div>
+          			</div>
+				</td>
+			</tr>
+			<br>
+			<tr>
+				<td>
+					<label class="checkbox-inline">
+						<input type="checkbox" [(ngModel)]="enableDate" ng-init="enableDate=false" name="enableDate" (change)="changeEvent(enableDate)">Set start date and end date
+					</label>
+				</td>
+				<td> 
+					<input class="form-control" placeholder="Start Date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="startDate" [(ngModel)]="project.startDate" name="startDate" [disabled]="!enableDate">
+				</td>
+				<td>
+					<input class="form-control" placeholder="End Date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="endDate" [(ngModel)]="project.endDate" name="endDate" [disabled]="!enableDate">
+				</td>
+			</tr>
+			<br>
+			<tr>
+				<td><label class="form-group"> Priority : </label></td>
+				<td>
+					0&nbsp;<input class="slidecontainer form-control" type="range" min="1" max="30" class="slider" id="myRange" [(ngModel)]="project.priority" name="priority">
+				</td>
+				<td>30</td>
+			</tr>
+			<br>
+			<tr>
+				<td><label class="form-group"> Manager : </label></td>
+				<td>
+					<input class="form-control" type="text" [(ngModel)]="project.manager" name="manager" id="manager" required readonly #manager="ngModel"/>
+					<div [hidden]="manager.valid || manager.pristine" class="alert alert-danger">
+						<div [hidden]="!manager.hasError('required')">Project Manager is required</div>
+          			</div>
+				</td>
+				<td>
+				  &nbsp;&nbsp;	
+				  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#userModal">Search</button>
+				</td>
+			</tr>
+			<br>
+			<tr>
+				<td></td>
+				<td>
+					<div class="form-group">
+						<input type="button" [value]="editProjectFlag ? 'Update' : 'Add'" class="btn btn-default" (click)="onSubmit(project);addProjectForm.reset();" [disabled]="!addProjectForm.form.valid"/>
+						<input type="button" value="Reset" class="btn btn-default" (click)="addProjectForm.reset()"/>
+					</div>
+				</td>
+			</tr>
+			<tr > <div><hr style="width: 600%; border: solid;"></div> </tr>
+			<tr>
+				<td></td>
+				<td colspan="2"><input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Search" name="searchText"> </td>
+			</tr>
+			<br>
+			<tr>
+				<td></td>
+				<td colspan="2">
+					<label class="form-group">Sort BY</label>
+					<button class="btn btn-default" (click)="sortByStartDate()">Start Date</button>
+					<button class="btn btn-default" (click)="sortByEndDate()">End Date</button>
+					<button class="btn btn-default" (click)="sortByPriority()">Priority</button>
+					<button class="btn btn-default" (click)="sortByCompleted()">Completed</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+</div>
+
+	<div *ngFor="let project of projects | filter:searchText">
+		<div class="projectarea">
+			<label> Project: {{project.projectName}}</label><br>
+			<label> No of Tasks: {{project.taskNumber}} &nbsp;&nbsp;&nbsp;&nbsp; Completed:  {{project.completedTaskNumber}} </label><br>
+			<label>Start Date:  {{project.startDate | date}}  End Date: {{project.endDate | date}}</label>
+		</div>
+		<div class="priority">
+			<label> Priority </label>
+			<label>{{project.priority}}</label>
+		</div>
+		<div class="btnss">
+			<button class="btn btn-default" (click)="editProject(project)">Update</button>
+			<br>
+			<button class="btn btn-default" (click)="deleteProject(project)">Suspend</button>
+		</div>
+		<div style="clear: left;"></div>
+
+	</div>
+
+<!-- User Modal -->
+<div class="modal fade" id="userModal" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Select User</h4>
+    </div>
+    <div class="modal-body">
+      <ul class="list-group">
+      	    <li><input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Search" name="searchText"></li>
+      	    <br>
+      	    <button class="list-group-item" *ngFor="let user of users | filter:searchText" data-dismiss="modal" (click)="project.manager=user.firstName; project.userId=user.userId">{{user.firstName}}</button>
+	  </ul>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+  
+</div>
+</div>

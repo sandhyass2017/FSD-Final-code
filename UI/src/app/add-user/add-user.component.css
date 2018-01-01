@@ -1,0 +1,13 @@
+div{
+  padding: 10px;
+}
+
+
+input[type=text]{
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.07);
+}
+
+input[type=button]{
+  padding: 5px;
+}

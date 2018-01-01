@@ -1,0 +1,99 @@
+<div>
+	<form #addUserForm="ngForm">
+		<table>
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="firstName"> FirstName : </label>
+					</div>
+				</td>
+				<td>
+					<input class="form-control" type="text" [(ngModel)]="user.firstName" name="firstName" id="firstName" required pattern="[a-zA-Z][a-zA-Z ]+" #firstName="ngModel"/>
+					<div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">
+						<div [hidden]="!firstName.hasError('required')">First Name is required</div>
+	          			<div [hidden]="!firstName.hasError('pattern')">Only alphabets allowed</div>
+          			</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="form-group">
+						<label> LastName : </label>
+					</div>
+				</td>
+				<td>
+					<input class="form-control" type="text" [(ngModel)]="user.lastName" name="lastName" id="lastName" required pattern="[a-zA-Z][a-zA-Z ]+" #lastName="ngModel"/>
+					<div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">
+						<div [hidden]="!lastName.hasError('required')">Last Name is required</div>
+	          			<div [hidden]="!lastName.hasError('pattern')">Only alphabets allowed</div>
+          			</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="form-group">
+						<label> Employee ID : </label>
+					</div>
+				</td>
+				<td>
+					<input class="form-control" type="text" [(ngModel)]="user.employeeId" name="employeeId" id="employeeId" required  #employeeId="ngModel"/>
+					<div [hidden]="employeeId.valid || employeeId.pristine" class="alert alert-danger">
+						<div [hidden]="!employeeId.hasError('required')">Employee id is required</div>
+          			</div>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<div class="form-group">
+						<input type="button" [value]="editUserFlag ? 'Update' : 'Add'" class="btn btn-default" (click)="onSubmit(user);addUserForm.reset();" [disabled]="!addUserForm.form.valid"/>
+						<input type="button" value="Reset" class="btn btn-default" (click)="addUserForm.reset()"/>
+					</div>
+				</td>
+			</tr>
+			<tr > <div><hr style="width: 300%"></div> </tr>
+			<tr>
+				<td>
+					<input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Search" name="searchText">
+				</td>
+				<td>
+					<label class="form-group">&nbsp;&nbsp;Sort&nbsp;</label>
+					<button class="btn btn-default" (click)="sortByFirstName()">Firstname</button>
+					<button class="btn btn-default" (click)="sortByLastName()">LastName</button>
+					<button class="btn btn-default" (click)="sortById()">Id</button>
+				</td>
+			</tr>
+			<tr> <hr style="border-top: dotted 2px; width: 270%" /> </tr>
+		</table>			
+	</form>
+
+	<div *ngFor="let user of users | filter:searchText">
+		   <table>
+			<tr>
+				<td colspan="2">
+					<input class="form-control" [(ngModel)]="user.firstName" placeholder="firstName" readonly #test="ngModel">
+				</td>
+				<td> &nbsp;&nbsp;&nbsp;&nbsp; <button class="btn btn-default" (click)="editUser(user)">Edit</button></td>
+			</tr>
+			<br>
+			<tr>
+				<td colspan="2">
+					<input class="form-control" [(ngModel)]="user.lastName" placeholder="lastName" readonly>
+				</td>
+				<td>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-default" (click)="deleteUser(user)">Delete</button>
+				</td>
+			</tr>
+			<br>
+			<tr >
+				<td>
+					<input class="form-control" [(ngModel)]="user.employeeId" placeholder="employeeId" readonly> 
+				</td>
+			</tr>
+			<br>
+			<tr> <hr style="border-top: dotted 2px; width: 270%" /> </tr>
+		</table>
+	</div>
+
+</div>
